@@ -14,3 +14,7 @@ const insertIntoDB = async (req: Request, res: Response) => {
         res.send(err);
     }
 }
+
+export const CategoryController = {
+    insertIntoDB                
+}
