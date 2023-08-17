@@ -18,8 +18,7 @@ const getAllPost = async (options: any) => {
      const skip = parseInt(limit)* parseInt(page) - parseInt(limit);
      const take = parseInt(limit);
     const result = await prisma.post.findMany({
-      skip,
-      take,
+    //    
       include: {
         author: true,
         category: true
@@ -46,7 +45,10 @@ const getAllPost = async (options: any) => {
         ]
       }
     });
-    return result;
+
+    const total = await prisma.post.count();
+
+    return {data: result, total};
     
 }
 
