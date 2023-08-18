@@ -15,12 +15,13 @@ const createPost = async ( data: Post):Promise<Post> => {
 
 const getAllPost = async (options: any) => {
      const {sortBy, sortOrder, searchTerm,page, limit  } = options;
-     const skip = parseInt(limit)* parseInt(page) - parseInt(limit);
-     const take = parseInt(limit);
+     const skip = parseInt(limit)* parseInt(page) - parseInt(limit) || 0;
+     const take = parseInt(limit) || 10;
 
      return await prisma.$transaction( async(tx) => {
             const result = await tx.post.findMany({
-              //
+              skip,
+              take,
               include: {
                 author: true,
                 category: true,
@@ -77,11 +78,36 @@ const deletePost = async (id: number): Promise<Post> => {
     }
   })
   return result;
-};
+}
+
+const learnAggregateAndGrouping = async () => {
+  // const result = await prisma.post.aggregate({
+  //    _avg: {
+  //     authorId: true,
+  //     categoryId: true
+  //    },
+  //    _count: {
+  //     authorId: true
+  //    },
+  //    _sum: {
+  //     authorId: true
+  //    }
+  // })
+  // return result;
+  const result = await prisma.post.groupBy({
+
+    by: ['title'],
+    _count: {
+      title: true
+    }
+  })
+  return result;
+}
 
 export const PostService = {
     createPost,
     getAllPost,
     updatePost ,
-    deletePost
+    deletePost,
+    learnAggregateAndGrouping 
 }

@@ -64,10 +64,25 @@ const deletePost = async (req: Request, res: Response) => {
   }
 };
 
+const learnAggregateAndGrouping = async (req: Request, res: Response) => {
+  
+  try {
+    const result = await PostService.learnAggregateAndGrouping();
+    res.send({
+      success: true,
+      message: "Result!",
+      data: result 
+    });
+  } catch (err) {
+    res.send(err);
+  }
+};
+
 
 export const PostController = {
   createPostController,
   getAllPostController,
   updatePost,
-  deletePost
+  deletePost,
+  learnAggregateAndGrouping
 };
