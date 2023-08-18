@@ -81,6 +81,9 @@ const deletePost = async (id: number): Promise<Post> => {
 }
 
 const learnAggregateAndGrouping = async () => {
+  //for average data
+
+  
   // const result = await prisma.post.aggregate({
   //    _avg: {
   //     authorId: true,
@@ -94,6 +97,7 @@ const learnAggregateAndGrouping = async () => {
   //    }
   // })
   // return result;
+
   const result = await prisma.post.groupBy({
 
     by: ['title'],
